@@ -1,0 +1,53 @@
+spring:
+  profiles:
+    active:
+    - dev
+---
+server:
+  port: 9527 #注册中心占用7001端口,冒号后面必须要有空格
+
+spring:
+  profiles: dev
+  application:
+    name: microsoftservice-zuul
+
+zuul:
+  ignoredServices: '*'
+  routes:
+    product:
+      serviceId: service-product
+      path: /**
+  prefix: /soa
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://eureka7001.com:8001/eureka/
+  instance:
+    instance-id: microsoftservice-zuul
+    prefer-ip-address: true
+---
+server:
+  port: 9527 #注册中心占用7001端口,冒号后面必须要有空格
+
+spring:
+  profiles: test
+  application:
+    name: microsoftservice-zuul
+
+zuul:
+  ignoredServices: '*'
+  routes:
+    product:
+      serviceId: service-product
+      path: /**
+  prefix: /soa
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://eureka7001.com:8001/eureka/
+  instance:
+    instance-id: microsoftservice-zuul
+    prefer-ip-address: true
+
